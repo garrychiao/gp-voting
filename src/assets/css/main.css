@@ -1,0 +1,97 @@
+:root {
+    --main-color: rgb(235, 144, 98);
+}
+
+@font-face {
+    font-family: Apercu-Bold;
+    src: url('../fonts/Apercu\ Bold.otf');
+}
+@font-face {
+    font-family: Apercu-BoldItalic;
+    src: url('../fonts/Apercu\ Bold\ Italic.otf');
+}
+@font-face {
+    font-family: Apercu-Italic;
+    src: url('../fonts/Apercu\ Italic.otf');
+}
+@font-face {
+    font-family: Apercu-Regular;
+    src: url('../fonts/Apercu_Regular.otf');
+}
+@font-face {
+    font-family: Apercu-Medium;
+    src: url('../fonts/Apercu\ Medium.otf');
+}
+@font-face {
+    font-family: Apercu-MediumItalic;
+    src: url('../fonts/Apercu\ Medium\ Italic.otf');
+}
+@font-face {
+    font-family: Apercu-Light;
+    src: url('../fonts/Apercu\ Light.otf');
+}
+@font-face {
+    font-family: NotoSansCJKtc-Regular;
+    src: url('../fonts/NotoSansCJKtc-Regular.otf');
+}
+@font-face {
+    font-family: NotoSansCJKtc-Bold;
+    src: url('../fonts/NotoSansCJKtc-Bold.otf');
+}
+@font-face {
+    font-family: NotoSansCJKtc-Medium;
+    src: url('../fonts/NotoSansCJKtc-Medium.otf');
+}
+
+.Apercu-Bold {
+    font-family: Apercu-Bold;
+}
+.Apercu-BoldItalic {
+    font-family: Apercu-BoldItalic;
+}
+.Apercu-Italic {
+    font-family: Apercu-Italic;
+}
+.Apercu-Regular {
+    font-family: Apercu-Regular;
+}
+.Apercu-Medium {
+    font-family: Apercu-Medium;
+}
+.Apercu-MediumItalic {
+    font-family: Apercu-MediumItalic;
+}
+.Apercu-Light {
+    font-family: Apercu-Light;
+}
+.NotoSansCJKtc-Regular {
+    font-family: NotoSansCJKtc-Regular;
+}
+.NotoSansCJKtc-Bold {
+    font-family: NotoSansCJKtc-Bold;
+}
+.NotoSansCJKtc-Medium {
+    font-family: NotoSansCJKtc-Medium;
+}
+
+body {
+    margin: 0;
+}
+
+@media (min-width: 1920px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1919px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    html {
+        font-size: 10px;
+    }
+}
