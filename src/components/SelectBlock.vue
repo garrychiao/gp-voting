@@ -1,15 +1,25 @@
 <template>
-  <div class="select-block" v-bind:style="{backgroundImage: `url(${target.imgUrl})`}">
-    
+  <div class="select-block" v-bind:style="{backgroundImage: `url(${target.imgUrl})`}" @click="checkSendVote">
+    <div class="mart-info">
+      <p class="NotoSansCJKtc-Bold">{{ target.mart }}</p>
+      <p class="Apercu-Bold">{{ target.engMart }}</p>
+    </div>
+    <div class="confirm-layer">
+      <el-button round class="NotoSansCJKtc-Regula">確定投票</el-button>
+    </div>
   </div>
 </template>
 
 <script>
+import config from '@/config/config'
+import axios from 'axios'
+
 export default {
   name: 'SelectBlock',
-  props: ['targetMart'],
+  props: ['targetMart', 'ip'],
   data() {
     return {
+      mobile: false,
       target: {
         mart: '愛買',
         engMart: "a.Mart",
@@ -18,7 +28,7 @@ export default {
       marts: [
         {
           mart: '愛買',
-          engMart: "a.Mart",
+          engMart: "a.mart",
           imgUrl: require('@/assets/img/marts/a-mart.png')
         },
         {
@@ -66,9 +76,34 @@ export default {
     }
   },
   created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize();
     this.bindTarget();
   },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    checkSendVote () {
+      if (!this.mobile) {
+        this.sendVote()
+      }
+    },
+    async sendVote() {
+
+      let data = new FormData();
+      data.append('Name', this.target.mart);
+      data.append('IP', this.ip);
+      
+      try {
+
+        let postRef = await axios.post(config.script, data);
+        let postRes = postRef.data;
+        
+      } catch (err) {
+        console.log(err);
+      }
+    },
     bindTarget () {
       let target = this.marts.find((element) => {
         return element.mart === this.targetMart
@@ -76,6 +111,13 @@ export default {
       if (target){
         this.target = target;
       }  
+    },
+    handleResize() {
+      if (window.innerWidth < 768) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
     }
   },
   watch: {
@@ -87,7 +129,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .select-block {
   height: 25vh;
   background-color: rgb(245, 245, 245);
@@ -97,5 +139,43 @@ export default {
   margin: -1px;
   border: 1px solid black;
   cursor: pointer;
+  position: relative;
+  .mart-info {
+    position: absolute;
+    left: 10%;
+    bottom: 7%;
+    p {
+      margin: 0;
+      letter-spacing: 2.25pt;
+    }
+    p:nth-child(1) {
+      font-size: 1.1rem;
+    }
+    p:nth-child(2) {
+      font-size: 0.6rem;
+    }
+  }
+  .confirm-layer {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 25vh;
+    background-color: rgba(255, 239, 167, 0.57);
+    background-image: url('../assets/img/voted.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    text-align: center;
+    .el-button {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--main-color);
+      color: white;
+      letter-spacing: 1.75pt;
+    }
+  }
+  .confirm-layer:hover {
+    opacity: 1;
+  }
 }
 </style>

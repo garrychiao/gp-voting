@@ -26,16 +26,24 @@
       <el-col :xs="24" :sm="12">
         <el-row class="block-section">
           <el-col :xs="12" :sm="8" v-for="(item, index) in marts" :key="index">
-            <SelectBlock :targetMart="item"></SelectBlock>
+            <SelectBlock :targetMart="item" :ip="ip"></SelectBlock>
           </el-col>
         </el-row>
+      </el-col>
+    </el-row>
+    <el-row>
+      <!-- footer -->
+      <el-col :xs="24" class="footer">
+
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import SelectBlock from './components/SelectBlock.vue'
+import config from '@/config/config';
+import axios from 'axios';
+import SelectBlock from './components/SelectBlock.vue';
 
 export default {
   name: 'app',
@@ -44,6 +52,8 @@ export default {
   },
   data () {
     return {
+      ip: '',
+      statistics: {},
       marts: [
         "愛買",
         "家樂福",
@@ -57,11 +67,33 @@ export default {
       ]
     }
   },
-  created() {
+  async created () {
+    await Promise.all([this.getData(), this.getIP()]);
+    // await this.getData();
     this.marts = this.shuffle(this.marts);
     // console.log(this.marts)
   },
   methods: {
+    async getData () {
+
+      try {
+        let dataRef = await axios.get(config.script);
+        this.statistics = dataRef.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getIP () {
+
+      try {
+        let dataRef = await axios.get('https://api.ipify.org?format=json');
+        let data = dataRef.data;
+        this.ip = data.ip
+        // console.log(this.ip);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     shuffle(array) {
       let counter = array.length;
       // While there are elements in the array
@@ -119,5 +151,10 @@ export default {
 }
 .block-section {
   overflow: hidden;
+}
+
+.footer {
+  background-color: var(--main-color);
+  height: 25vh;
 }
 </style>
