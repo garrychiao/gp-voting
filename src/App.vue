@@ -710,6 +710,7 @@ export default {
           background-color: var(--main-color);
           color: white;
           letter-spacing: 2.15pt;
+          font-size: 1rem;
         }
       }
     }

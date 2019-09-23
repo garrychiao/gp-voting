@@ -153,16 +153,7 @@ export default {
 }
 @media (max-width: 767px) {
   .confirm-layer {
-    opacity: 1;
-    position: absolute;
-    width: 100%;
-    height: 25vh;
-    background-color: rgba(255, 239, 167, 0.57);
     background-size: 65px 65px;
-    background-image: url('../assets/img/voted.png');
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    text-align: center;
   }
 }
 </style>
