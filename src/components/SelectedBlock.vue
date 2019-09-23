@@ -1,12 +1,13 @@
 <template>
-  <div class="select-block" v-bind:style="{backgroundImage: `url(${target.imgUrl})`}" @click="checkSendVote">
+  <div class="selected-block" v-bind:style="{backgroundImage: `url(${target.imgUrl})`}">
+    <div class="mart-rank">
+      <p class="Apercu-BoldItalic">{{ rank }}</p>
+    </div>
     <div class="mart-info">
       <p class="NotoSansCJKtc-Bold">{{ target.mart }}</p>
       <p class="Apercu-Bold">{{ target.engMart }}</p>
     </div>
-    <div class="confirm-layer">
-      <el-button round class="NotoSansCJKtc-Regula">確定投票</el-button>
-    </div>
+    <div class="confirm-layer" v-if="selected"></div>
   </div>
 </template>
 
@@ -15,8 +16,8 @@ import config from '@/config/config'
 import axios from 'axios'
 
 export default {
-  name: 'SelectBlock',
-  props: ['targetMart', 'ip'],
+  name: 'SelectedBlock',
+  props: ['targetMart', 'selected', 'mobile', 'rank'],
   data() {
     return {
       target: {
@@ -77,13 +78,7 @@ export default {
   created() {
     this.bindTarget();
   },
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize)
-  },
   methods: {
-    checkSendVote () {
-      this.$emit('checkSendVote', this.target.mart);
-    },
     bindTarget () {
       let target = this.marts.find((element) => {
         return element.mart === this.targetMart
@@ -103,7 +98,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.select-block {
+.selected-block {
   height: 25vh;
   background-color: rgb(245, 245, 245);
   background-size: 30% auto;
@@ -111,8 +106,16 @@ export default {
   background-position: center center;
   margin: -1px;
   border: 1px solid black;
-  cursor: pointer;
   position: relative;
+  .mart-rank {
+    position: absolute;
+    left: 10%;
+    top: 4%;
+    p {
+      font-size: 1.5rem;
+      color: var(--main-color);
+    }
+  }
   .mart-info {
     position: absolute;
     left: 10%;
@@ -129,7 +132,7 @@ export default {
     }
   }
   .confirm-layer {
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     width: 100%;
     height: 25vh;
@@ -146,9 +149,6 @@ export default {
       color: white;
       letter-spacing: 1.75pt;
     }
-  }
-  .confirm-layer:hover {
-    opacity: 1;
   }
 }
 </style>
