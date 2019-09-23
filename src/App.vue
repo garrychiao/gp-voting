@@ -2,42 +2,50 @@
   <div id="app">
     <el-row>
       <!-- header img -->
-      <el-col :xs="24" :sm="12" class="header-img">
-
+      <el-col :xs="24" :sm="24" :md="12" class="header-img">
+        <img src="@/assets/img/gp-logo.png" alt="" class="logo">
+        <img src="@/assets/img/cart.png" alt="" class="cart-icon">
+        <p class="NotoSansCJKtc-Bold">超市減塑 誰當先鋒</p>
       </el-col>
       <!-- header title -->
-      <el-col :xs="24" :sm="12" class="header-title">
+      <el-col :xs="24" :md="12" class="header-title">
         <el-row v-if="!voted">
-          <el-col :xs="{span: 3, offset: 3}" :sm="{span: 1, offset: 5}">
+          <el-col :xs="{span: 5, offset: 2}" :sm="{span: 4, offset: 5}" :md="{span: 1, offset: 5}">
             <p class="title-Q Apercu-Bold">Q</p>
           </el-col>
-          <el-col :xs="{span: 3, offset: 3}" :sm="{span: 12, offset: 3}">
+          <el-col :xs="{span: 17, offset: 0}" :sm="{span: 14, offset: 0}" :md="{span: 12, offset: 3}">
             <p class="title NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售業中，<br>你最想先看到哪家<span class="NotoSansCJKtc-Medium">達成減塑</span>？</p>
           </el-col>
         </el-row>
         <el-row v-if="!voted">
-          <el-col :xs="{span: 3, offset: 3}" :xl="{span: 12, offset: 6}">
-            <p class="sub-title NotoSansCJKtc-Regular">｜ <span class="NotoSansCJKtc-Bold">點擊</span>品牌方塊，即可投票  ｜ </p>
+          <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :xl="{span: 12, offset: 6}">
+            <p class="sub-title NotoSansCJKtc-Regular">｜ <span class="NotoSansCJKtc-Bold" v-if="!mobile">點擊</span><span class="NotoSansCJKtc-Bold" v-if="mobile">長按3秒 </span>品牌方塊，即可投票  ｜ </p>
           </el-col>
         </el-row>
         <el-row v-if="voted">
-          <el-col :xs="{span: 3, offset: 3}" :xl="{span: 12, offset: 6}" class="voted-title">
+          <el-col :xs="{span: 24, offset: 0}" :sm="{span: 3, offset: 3}" :xl="{span: 12, offset: 6}" class="voted-title">
             <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售業票選排行</p>
-            <el-button round @click="resultShow = true">
+            <el-button round @click="resultShow = true" v-if="!mobile">
               看實際票數
+            </el-button>
+            <el-button round @click="resultShowMobile = true" v-if="mobile">
+              票選排行
             </el-button>
           </el-col>
         </el-row>
       </el-col>
 
       <!-- block section -->
-      <el-col :xs="24" :sm="12" class="block-section-container">
+      <el-col :xs="24" :md="12" class="block-section-container" v-if="!resultShowMobile">
         <el-row class="block-section" v-loading="loading">
-          <el-col :xs="12" :sm="8" v-for="(item, index) in marts" :key="index">
+          <el-col :xs="12" :sm="12" :md="8" v-for="(item, index) in marts" :key="index">
             <SelectBlock v-if="!voted" :mobile="mobile" :targetMart="item" v-on:checkSendVote="checkSendVote"></SelectBlock>
           </el-col>
-          <el-col :xs="12" :sm="8" v-for="item in statistics" :key="item.Name">
+          <el-col :xs="12" :sm="12" :md="8" v-for="item in statistics" :key="item.Name">
             <SelectedBlock v-if="voted" :rank="item.rank" :mobile="mobile" :targetMart="item.Name" :selected="(item.Name == votedTarget.Name)"></SelectedBlock>
+          </el-col>
+          <el-col :xs="12" :sm="12" v-if="mobile">
+            <BlankBlock></BlankBlock>
           </el-col>
         </el-row>
         <transition name="fade">
@@ -71,17 +79,56 @@
             </div>
           </div>
         </transition>
-
+      </el-col>
+      <!-- mobile result -->
+      <el-col :xs="24" :md="12" class="result-dialog-mobile" v-if="resultShowMobile">
+        <div class="result-dialog-content">
+          <el-row v-for="item in statistics" :key="item.Name">
+            <el-col :span="8">
+              <p>{{item.Name}}</p>
+            </el-col>
+            <el-col :span="16">
+              <div class="percent-bar">
+                <div class="percent-bar-bar">
+                  <div class="percent-bar-content" v-bind:style="{width: item.percent}"></div>
+                  <div class="percent-bar-number">
+                    <p>{{ item.Count }}</p>
+                  </div>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+          <el-row lass="result-info">
+            <el-col :span="24">
+              <p>統計單位：人數</p>
+            </el-col>
+            <el-col :span="24" class="result-close">
+              <el-button round  @click="resultShowMobile = false">
+                返回
+              </el-button>
+            </el-col>
+          </el-row>
+        </div>
       </el-col>
     </el-row>
       <!-- footer -->
     <el-row class="footer">
       <el-col :xs="24" v-if="mobile">
-        
+        <el-row>
+          <el-col :xs="24">
+            <p class="NotoSansCJKtc-Regular copyright">© 2019 Greenpeace</p>
+          </el-col>
+          <el-col :xs="15">
+            <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發生，我們的存在是因為脆弱的地球需要改變、需要行動。</p>
+          </el-col>
+          <el-col :xs="20">
+            <p class="NotoSansCJKtc-Medium">但保護地球的使命不能僅靠綠色和平來完成，「您」就是改變世界的力量！</p>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :xs="24" :sm="{span: 6, offset: 3}">
+      <el-col :xs="24" :sm="{span: 6, offset: 0}" :md="{span: 6, offset: 3}">
         <el-row :gutter="15">
-          <el-col :xs="4" :sm="5">
+          <el-col :xs="4" :sm="8" :md="5">
             <el-button class="NotoSansCJKtc-Regular" round>
               主頁
             </el-button>
@@ -114,17 +161,20 @@
 import config from '@/config/config';
 import axios from 'axios';
 import SelectBlock from './components/SelectBlock.vue';
+import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
 
 export default {
   name: 'app',
   components: {
     SelectBlock,
-    SelectedBlock
+    SelectedBlock,
+    BlankBlock,
   },
   data () {
     return {
       resultShow: false,
+      resultShowMobile: false,
       mobile: false,
       voted: false,
       loading: false,
@@ -200,12 +250,13 @@ export default {
       }
     },
     checkSendVote (mart) {
-      if (!this.mobile) {
-        this.sendVote(mart)
-      }
+      // if (!this.mobile) {
+      //   this.sendVote(mart)
+      // }
+      this.sendVote(mart);
     },
     async sendVote(mart) {
-
+      this.loading = true;
       let data = new FormData();
       data.append('Name', mart);
       data.append('IP', this.ip);
@@ -215,9 +266,12 @@ export default {
         let postRef = await axios.post(config.script, data);
         let postRes = postRef.data;
         console.log(postRes);
+        await this.getData();
+        this.loading = false;
 
       } catch (err) {
         console.log(err);
+        this.loading = false;
       }
     },
     shuffle(array) {
@@ -239,7 +293,7 @@ export default {
       return array;
     },
     handleResize() {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 992) {
         this.mobile = true
       } else {
         this.mobile = false
@@ -261,6 +315,29 @@ export default {
   background-image: url('./assets/img/web-banner.png');
   background-size: cover;
   height: 100vh;
+  position: relative;
+  .logo{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 30%;
+    max-width: 260px;
+  }
+  .cart-icon {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 40px;
+  }
+  p {
+    margin: 0;
+    position: absolute;
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 7pt;
+    top: 90px;
+    left: 110px;
+  }
 }
 .header-title {
   background-color: var(--main-color);
@@ -355,7 +432,24 @@ export default {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1919px) {
+@media (min-width: 992px) and (max-width: 1919px) {
+  .header-img {
+    .logo{
+      top: 40px;
+      left: 40px;
+      width: 30%;
+      max-width: 260px;
+    }
+    .cart-icon {
+      top: 80px;
+      left: 40px;
+      width: 25px;
+    }
+    p {
+      top: 75px;
+      left: 80px;
+    }
+  }
   .header-title {
     padding: 20px;
     .title {
@@ -438,5 +532,216 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+// mobile
+@media (max-width: 991px) {
+  .header-img {
+    background-image: url('./assets/img/banner.png');
+    height: 35vh;
+    .logo{
+      top: unset;
+      bottom: 50px;
+      left: 30px;
+      width: 30%;
+      max-width: 260px;
+    }
+    .cart-icon {
+      top: unset;
+      bottom: 20px;
+      left: 30px;
+      width: 25px;
+    }
+    p {
+      top: unset;
+      font-size: 2.2rem;
+      letter-spacing: 3.5pt;
+      bottom: 16px;
+      left: 70px;
+    }
+  }  
+  .header-title {
+    // height: 25vh;
+    padding: 30px;
+    .title-Q {
+      font-size: 8rem;
+    }
+    .title {
+      font-size: 1.6rem;
+      margin-top: 30px;
+      letter-spacing: 1.75pt;
+    }
+    .sub-title {
+      font-size: 1.2rem;
+      letter-spacing: 1.75pt;
+      text-align:  center;
+    }
+    .voted-title {
+      font-size: 1.5rem;
+      padding: 3% 0;
+      letter-spacing: 3.15pt;
+      text-align: center;
+      .el-button {
+        background-color: transparent;
+        color: white;
+        letter-spacing: 3.15pt;
+      }
+    }
+  }
+  .footer {
+    background-image: url('./assets/img/footer.png');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    padding: 20px 50px; 
+    .el-row {
+      position: relative;
+    }
+    .copyright {
+      text-align: right;
+      letter-spacing: 1.25pt;
+    }
+    .el-button {
+      padding: 10px;
+      margin-top: 20px;
+      background-color: transparent;
+      letter-spacing: 2pt;
+      color: white;
+      border: 1px solid white;
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.6rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: white;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .header-img {
+    background-image: url('./assets/img/banner.png');
+    height: 35vh;
+    .logo{
+      top: unset;
+      bottom: 50px;
+      left: 30px;
+      width: 30%;
+      max-width: 260px;
+    }
+    .cart-icon {
+      top: unset;
+      bottom: 20px;
+      left: 30px;
+      width: 25px;
+    }
+    p {
+      top: unset;
+      font-size: 2.2rem;
+      letter-spacing: 3.5pt;
+      bottom: 16px;
+      left: 70px;
+    }
+  }  
+  .header-title {
+    // height: 25vh;
+    padding: 30px;
+    .title-Q {
+      font-size: 8rem;
+    }
+    .title {
+      font-size: 1.6rem;
+      margin-top: 20px;
+      letter-spacing: 1.75pt;
+    }
+    .sub-title {
+      font-size: 1.2rem;
+      letter-spacing: 1.75pt;
+      text-align:  center;
+    }
+    .voted-title {
+      font-size: 1.5rem;
+      padding: 3% 0;
+      letter-spacing: 3.15pt;
+      text-align: center;
+      .el-button {
+        background-color: transparent;
+        color: white;
+        font-size: 1rem;
+        padding: 10px;
+        letter-spacing: 1.75pt;
+      }
+    }
+  }
+  .result-dialog-mobile {
+    .result-dialog-content{ 
+      padding: 40px 20px 20px 20px;
+      p {
+        margin: 0 15px 0 0;
+        text-align: right;
+      }
+      .el-row {
+        padding: 5px 0;
+      }
+      .percent-bar {
+        width: 100%;
+        position: relative;
+        top: 50%;
+        .percent-bar-bar {
+          display: inline-flex;
+          width: 100%;
+          .percent-bar-content {
+            height: 20px;
+            background-color: rgb(251, 210, 73);
+          }
+          .percent-bar-number {
+            width: 20%;
+            text-align: left;
+            font-size: 0.8rem;
+          }
+        }
+      }
+      .result-info {
+        text-align: right;
+      }
+      .result-close {
+        text-align: center;
+        padding: 20px;
+        .el-button {
+          background-color: var(--main-color);
+          color: white;
+          letter-spacing: 2.15pt;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background-image: url('./assets/img/footer.png');
+    background-size: cover;
+    height: 350px;
+    padding: 20px 30px; 
+    .el-row {
+      position: relative;
+    }
+    .copyright {
+      text-align: right;
+      letter-spacing: 1.25pt;
+    }
+    .el-button {
+      padding: 10px;
+      margin-top: 20px;
+      background-color: transparent;
+      letter-spacing: 2pt;
+      color: white;
+      border: 1px solid white;
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.6rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: white;
+    }
+  }
 }
 </style>
