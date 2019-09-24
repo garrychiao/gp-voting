@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" 
+    v-loading.fullscreen.lock="domLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(245, 245, 245, 0.9)">
     <el-row>
       <!-- header img -->
       <el-col :xs="24" :sm="24" :md="12" class="header-img">
@@ -158,6 +161,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import config from '@/config/config';
 import axios from 'axios';
 import SelectBlock from './components/SelectBlock.vue';
@@ -173,6 +177,7 @@ export default {
   },
   data () {
     return {
+      domLoading: true,
       resultShow: false,
       resultShowMobile: false,
       mobile: false,
@@ -233,6 +238,7 @@ export default {
           this.voted = true;
         }
         this.loading = false;
+        this.domLoading = false;
 
       } catch (err) {
         console.log(err);
@@ -643,8 +649,8 @@ export default {
     background-image: url('./assets/img/footer.png');
     background-size: cover;
     background-position: center;
-    height: 350px;
-    padding: 10px 25px; 
+    height: auto;
+    padding: 10px 25px 30px 25px; 
     .el-row {
       position: relative;
     }
@@ -662,7 +668,7 @@ export default {
       font-size: 1rem;
     }
     p {
-      font-size: 0.6rem;
+      font-size: 1rem;
       margin-top: 0;
       margin-bottom: 20px;
       color: white;
