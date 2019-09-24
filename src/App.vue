@@ -23,7 +23,7 @@
           </el-col>
         </el-row>
         <el-row v-if="voted">
-          <el-col :xs="{span: 24, offset: 0}" :sm="{span: 3, offset: 3}" :xl="{span: 12, offset: 6}" class="voted-title">
+          <el-col :xs="{span: 24, offset: 0}" :sm="{span: 18, offset: 3}" :xl="{span: 18, offset: 3}" class="voted-title">
             <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售業票選排行</p>
             <el-button round @click="resultShow = true" v-if="!mobile">
               看實際票數
@@ -126,7 +126,7 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :xs="24" :sm="{span: 6, offset: 0}" :md="{span: 6, offset: 3}">
+      <el-col :xs="24" :sm="{span: 5, offset: 0}" :md="{span: 6, offset: 2}" :xl="{span: 6, offset: 3}">
         <el-row :gutter="15">
           <el-col :xs="4" :sm="8" :md="5">
             <el-button class="NotoSansCJKtc-Regular" round>
@@ -150,8 +150,8 @@
       <el-col :sm="11" v-if="!mobile">
         <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發生，我們的存在是因為脆弱的地球需要改變、需要行動。<br>但保護地球的使命不能僅靠綠色和平來完成，「您」就是改變世界的力量！</p>
       </el-col>
-      <el-col :sm="3" v-if="!mobile">
-        <p class="NotoSansCJKtc-Regular">© 2019 Greenpeace</p>
+      <el-col :sm="4" :xl="3" v-if="!mobile">
+        <p class="NotoSansCJKtc-Regular copyright">© 2019 Greenpeace</p>
       </el-col>
     </el-row>
   </div>
@@ -343,7 +343,7 @@ export default {
   background-color: var(--main-color);
   height: 25vh;
   color: white;
-  padding: 40px;
+  padding: 20px 40px;
   .title-Q {
     margin: 0;
     font-size: 8rem;
@@ -354,6 +354,7 @@ export default {
     letter-spacing: 3.15pt;
   }
   .sub-title {
+    margin: 0;
     font-size: 1.2rem;
     letter-spacing: 3.15pt;
     text-align:  center;
@@ -451,14 +452,14 @@ export default {
     }
   }
   .header-title {
-    padding: 20px;
+    padding: 10px 20px;
     .title {
       margin-top: 30px;
     }
   }
   .result-dialog {
     .result-dialog-content{ 
-      padding: 40px 40px 20px 40px;
+      padding: 30px 30px 10px 30px;
       p {
         margin: 5px 15px 0 0;
         text-align: right;
@@ -499,6 +500,7 @@ export default {
     }
   }
   .footer {
+    padding: 20px 10px !important; 
     .el-button {
       padding: 10px 15px;
     }
@@ -525,6 +527,9 @@ export default {
     margin-top: 40px;
     color: white;
   }
+  .copyright {
+    text-align: right;
+  }
 }
 //
 .fade-enter-active, .fade-leave-active {
@@ -543,7 +548,7 @@ export default {
       bottom: 50px;
       left: 30px;
       width: 30%;
-      max-width: 260px;
+      max-width: 200px;
     }
     .cart-icon {
       top: unset;
@@ -553,25 +558,27 @@ export default {
     }
     p {
       top: unset;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       letter-spacing: 3.5pt;
-      bottom: 16px;
+      bottom: 15px;
       left: 70px;
     }
   }  
   .header-title {
-    // height: 25vh;
-    padding: 30px;
+    height: auto;
+    padding: 20px;
     .title-Q {
-      font-size: 8rem;
+      margin-top: unset;
+      font-size: 5rem;
     }
     .title {
-      font-size: 1.6rem;
-      margin-top: 30px;
+      font-size: 1.2rem;
+      margin-top: 16px;
       letter-spacing: 1.75pt;
     }
     .sub-title {
-      font-size: 1.2rem;
+      margin-top: 20px;
+      font-size: 1rem;
       letter-spacing: 1.75pt;
       text-align:  center;
     }
@@ -587,96 +594,12 @@ export default {
       }
     }
   }
-  .footer {
-    background-image: url('./assets/img/footer.png');
-    background-size: cover;
-    background-position: center;
-    height: 350px;
-    padding: 20px 50px; 
-    .el-row {
-      position: relative;
-    }
-    .copyright {
-      text-align: right;
-      letter-spacing: 1.25pt;
-    }
-    .el-button {
-      padding: 10px;
-      margin-top: 20px;
-      background-color: transparent;
-      letter-spacing: 2pt;
-      color: white;
-      border: 1px solid white;
-      font-size: 1rem;
-    }
-    p {
-      font-size: 0.6rem;
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: white;
-    }
-  }
-}
-@media (max-width: 767px) {
-  .header-img {
-    background-image: url('./assets/img/banner.png');
-    height: 35vh;
-    .logo{
-      top: unset;
-      bottom: 50px;
-      left: 30px;
-      width: 30%;
-      max-width: 260px;
-    }
-    .cart-icon {
-      top: unset;
-      bottom: 20px;
-      left: 30px;
-      width: 25px;
-    }
-    p {
-      top: unset;
-      font-size: 2.2rem;
-      letter-spacing: 3.5pt;
-      bottom: 16px;
-      left: 70px;
-    }
-  }  
-  .header-title {
-    // height: 25vh;
-    padding: 30px;
-    .title-Q {
-      font-size: 8rem;
-    }
-    .title {
-      font-size: 1.6rem;
-      margin-top: 20px;
-      letter-spacing: 1.75pt;
-    }
-    .sub-title {
-      font-size: 1.2rem;
-      letter-spacing: 1.75pt;
-      text-align:  center;
-    }
-    .voted-title {
-      font-size: 1.5rem;
-      padding: 3% 0;
-      letter-spacing: 3.15pt;
-      text-align: center;
-      .el-button {
-        background-color: transparent;
-        color: white;
-        font-size: 1rem;
-        padding: 10px;
-        letter-spacing: 1.75pt;
-      }
-    }
-  }
   .result-dialog-mobile {
     .result-dialog-content{ 
-      padding: 40px 20px 20px 20px;
+      background-color: rgb(245, 245, 245);
+      padding: 30px 30px 10px 30px;
       p {
-        margin: 0 15px 0 0;
+        margin: 5px 15px 0 0;
         text-align: right;
       }
       .el-row {
@@ -707,20 +630,21 @@ export default {
         text-align: center;
         padding: 20px;
         .el-button {
+          padding: 10px 15px;
+          font-size: 1rem;
           background-color: var(--main-color);
           color: white;
-          letter-spacing: 2.15pt;
-          font-size: 1rem;
+          letter-spacing: 1.75pt;
         }
       }
     }
   }
-
   .footer {
     background-image: url('./assets/img/footer.png');
     background-size: cover;
+    background-position: center;
     height: 350px;
-    padding: 20px 30px; 
+    padding: 10px 25px; 
     .el-row {
       position: relative;
     }
@@ -745,4 +669,132 @@ export default {
     }
   }
 }
+// @media (max-width: 767px) {
+//   .header-img {
+//     background-image: url('./assets/img/banner.png');
+//     height: 35vh;
+//     .logo{
+//       top: unset;
+//       bottom: 50px;
+//       left: 30px;
+//       width: 30%;
+//       max-width: 260px;
+//     }
+//     .cart-icon {
+//       top: unset;
+//       bottom: 20px;
+//       left: 30px;
+//       width: 25px;
+//     }
+//     p {
+//       top: unset;
+//       font-size: 2.2rem;
+//       letter-spacing: 3.5pt;
+//       bottom: 16px;
+//       left: 70px;
+//     }
+//   }  
+//   .header-title {
+//     // height: 25vh;
+//     padding: 30px;
+//     .title-Q {
+//       font-size: 8rem;
+//     }
+//     .title {
+//       font-size: 1.6rem;
+//       margin-top: 20px;
+//       letter-spacing: 1.75pt;
+//     }
+//     .sub-title {
+//       font-size: 1.2rem;
+//       letter-spacing: 1.75pt;
+//       text-align:  center;
+//     }
+//     .voted-title {
+//       font-size: 1.5rem;
+//       padding: 3% 0;
+//       letter-spacing: 3.15pt;
+//       text-align: center;
+//       .el-button {
+//         background-color: transparent;
+//         color: white;
+//         font-size: 1rem;
+//         padding: 10px;
+//         letter-spacing: 1.75pt;
+//       }
+//     }
+//   }
+//   .result-dialog-mobile {
+//     .result-dialog-content{ 
+//       padding: 40px 20px 20px 20px;
+//       p {
+//         margin: 0 15px 0 0;
+//         text-align: right;
+//       }
+//       .el-row {
+//         padding: 5px 0;
+//       }
+//       .percent-bar {
+//         width: 100%;
+//         position: relative;
+//         top: 50%;
+//         .percent-bar-bar {
+//           display: inline-flex;
+//           width: 100%;
+//           .percent-bar-content {
+//             height: 20px;
+//             background-color: rgb(251, 210, 73);
+//           }
+//           .percent-bar-number {
+//             width: 20%;
+//             text-align: left;
+//             font-size: 0.8rem;
+//           }
+//         }
+//       }
+//       .result-info {
+//         text-align: right;
+//       }
+//       .result-close {
+//         text-align: center;
+//         padding: 20px;
+//         .el-button {
+//           background-color: var(--main-color);
+//           color: white;
+//           letter-spacing: 2.15pt;
+//           font-size: 1rem;
+//         }
+//       }
+//     }
+//   }
+
+//   .footer {
+//     background-image: url('./assets/img/footer.png');
+//     background-size: cover;
+//     height: 350px;
+//     padding: 20px 30px; 
+//     .el-row {
+//       position: relative;
+//     }
+//     .copyright {
+//       text-align: right;
+//       letter-spacing: 1.25pt;
+//     }
+//     .el-button {
+//       padding: 10px;
+//       margin-top: 20px;
+//       background-color: transparent;
+//       letter-spacing: 2pt;
+//       color: white;
+//       border: 1px solid white;
+//       font-size: 1rem;
+//     }
+//     p {
+//       font-size: 0.6rem;
+//       margin-top: 0;
+//       margin-bottom: 20px;
+//       color: white;
+//     }
+//   }
+// }
 </style>
