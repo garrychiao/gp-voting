@@ -167,6 +167,8 @@ import axios from 'axios';
 import SelectBlock from './components/SelectBlock.vue';
 import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'app',
@@ -271,9 +273,16 @@ export default {
 
         let postRef = await axios.post(config.script, data);
         let postRes = postRef.data;
-        console.log(postRes);
+        // console.log(postRes);
         await this.getData();
         this.loading = false;
+        Swal.fire({
+          type: 'success',
+          title: '投票成功',
+          text: '未來綠色和平會將投票結果和您的聲音傳達給企業! 請密切關注綠色和平臉書粉絲團，並邀請朋友參與投票',
+          confirmButtonColor: 'rgb(235, 144, 98)',
+        })
+        
 
       } catch (err) {
         console.log(err);

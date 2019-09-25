@@ -59,12 +59,12 @@ export default {
         {
           mart: '7-ELEVEN',
           engMart: "7-ELEVEN",
-          imgUrl: require('@/assets/img/marts/711.jpg')
+          imgUrl: require('@/assets/img/marts/711.png')
         },
         {
           mart: '頂好',
           engMart: "Wellcome",
-          imgUrl: require('@/assets/img/marts/wellcome.jpg')
+          imgUrl: require('@/assets/img/marts/wellcome.png')
         },
         {
           mart: '美廉社',
@@ -101,7 +101,7 @@ export default {
 .selected-block {
   height: 25vh;
   background-color: rgb(245, 245, 245);
-  background-size: 30% auto;
+  background-size: 60% auto;
   background-repeat: no-repeat;
   background-position: center center;
   margin: -1px;
@@ -151,9 +151,10 @@ export default {
     }
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 1919px) {
   .confirm-layer {
     background-size: 65px 65px;
   }
 }
+
 </style>
