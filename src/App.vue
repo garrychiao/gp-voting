@@ -3,6 +3,7 @@
     v-loading.fullscreen.lock="domLoading"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(245, 245, 245, 0.9)">
+    <el-button @click="test">test</el-button>
     <el-row>
       <!-- header img -->
       <el-col :xs="24" :sm="24" :md="12" class="header-img">
@@ -313,8 +314,18 @@ export default {
       } else {
         this.mobile = false
       }
+    },
+    test() {
+      if (navigator.share) {
+        navigator.share({
+            title: 'Web Fundamentals',
+            text: 'Check out Web Fundamentals — it rocks!',
+            url: 'https://github.com/garrychiao/gp-voting',
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      }
     }
-
   }
 }
 </script>
