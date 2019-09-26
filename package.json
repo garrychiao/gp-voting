@@ -15,7 +15,8 @@
     "sass-loader": "^8.0.0",
     "sweetalert2": "^8.17.6",
     "vue": "^2.6.10",
-    "vue-long-click": "^0.0.4"
+    "vue-long-click": "^0.0.4",
+    "vue-social-sharing": "^2.4.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

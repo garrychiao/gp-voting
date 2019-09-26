@@ -3,7 +3,6 @@
     v-loading.fullscreen.lock="domLoading"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(245, 245, 245, 0.9)">
-    <el-button @click="test">test</el-button>
     <el-row>
       <!-- header img -->
       <el-col :xs="24" :sm="24" :md="12" class="header-img">
@@ -40,80 +39,84 @@
       </el-col>
 
       <!-- block section -->
-      <el-col :xs="24" :md="12" class="block-section-container" v-if="!resultShowMobile">
-        <el-row class="block-section" v-loading="loading">
-          <el-col :xs="12" :sm="12" :md="8" v-for="(item, index) in marts" :key="index">
-            <SelectBlock v-if="!voted" :mobile="mobile" :targetMart="item" v-on:checkSendVote="checkSendVote"></SelectBlock>
-          </el-col>
-          <el-col :xs="12" :sm="12" :md="8" v-for="item in statistics" :key="item.Name">
-            <SelectedBlock v-if="voted" :rank="item.rank" :mobile="mobile" :targetMart="item.Name" :selected="(item.Name == votedTarget.Name)"></SelectedBlock>
-          </el-col>
-          <el-col :xs="12" :sm="12" v-if="mobile">
-            <BlankBlock></BlankBlock>
-          </el-col>
-        </el-row>
-        <transition name="fade">
-          <div class="result-dialog" v-if="resultShow">
-            <div class="result-dialog-content">
-              <el-row v-for="item in statistics" :key="item.Name">
-                <el-col :span="6">
-                  <p>{{item.Name}}</p>
-                </el-col>
-                <el-col :span="18">
-                  <div class="percent-bar">
-                    <div class="percent-bar-bar">
-                      <div class="percent-bar-content" v-bind:style="{width: item.percent}"></div>
-                      <div class="percent-bar-number">
-                        <p>{{ item.Count }}</p>
+      <transition name="fade">
+        <el-col :xs="24" :md="12" class="block-section-container" v-if="!resultShowMobile">
+          <el-row class="block-section" v-loading="loading">
+            <el-col :xs="12" :sm="12" :md="8" v-for="(item, index) in marts" :key="index">
+              <SelectBlock v-if="!voted" :mobile="mobile" :targetMart="item" v-on:checkSendVote="checkSendVote"></SelectBlock>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="8" v-for="item in statistics" :key="item.Name">
+              <SelectedBlock v-if="voted" :rank="item.rank" :mobile="mobile" :targetMart="item.Name" :selected="(item.Name == votedTarget.Name)"></SelectedBlock>
+            </el-col>
+            <el-col :xs="12" :sm="12" v-if="mobile">
+              <BlankBlock></BlankBlock>
+            </el-col>
+          </el-row>
+          <transition name="fade">
+            <div class="result-dialog" v-if="resultShow">
+              <div class="result-dialog-content">
+                <el-row v-for="item in statistics" :key="item.Name">
+                  <el-col :span="6">
+                    <p>{{item.Name}}</p>
+                  </el-col>
+                  <el-col :span="18">
+                    <div class="percent-bar">
+                      <div class="percent-bar-bar">
+                        <div class="percent-bar-content" v-bind:style="{width: item.percent}"></div>
+                        <div class="percent-bar-number">
+                          <p>{{ item.Count }}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </el-col>
-              </el-row>
-              <el-row lass="result-info">
-                <el-col :span="24">
-                  <p>統計單位：人數</p>
-                </el-col>
-                <el-col :span="24" class="result-close">
-                  <el-button round  @click="resultShow = false">
-                    返回
-                  </el-button>
-                </el-col>
-              </el-row>
+                  </el-col>
+                </el-row>
+                <el-row lass="result-info">
+                  <el-col :span="24">
+                    <p>統計單位：人數</p>
+                  </el-col>
+                  <el-col :span="24" class="result-close">
+                    <el-button round  @click="resultShow = false">
+                      返回
+                    </el-button>
+                  </el-col>
+                </el-row>
+              </div>
             </div>
-          </div>
-        </transition>
-      </el-col>
+          </transition>
+        </el-col>
+      </transition>
       <!-- mobile result -->
-      <el-col :xs="24" :md="12" class="result-dialog-mobile" v-if="resultShowMobile">
-        <div class="result-dialog-content">
-          <el-row v-for="item in statistics" :key="item.Name">
-            <el-col :span="8">
-              <p>{{item.Name}}</p>
-            </el-col>
-            <el-col :span="16">
-              <div class="percent-bar">
-                <div class="percent-bar-bar">
-                  <div class="percent-bar-content" v-bind:style="{width: item.percent}"></div>
-                  <div class="percent-bar-number">
-                    <p>{{ item.Count }}</p>
+      <transition name="fade">
+        <el-col :xs="24" :md="12" class="result-dialog-mobile" v-if="resultShowMobile">
+          <div class="result-dialog-content">
+            <el-row v-for="item in statistics" :key="item.Name">
+              <el-col :span="8">
+                <p>{{item.Name}}</p>
+              </el-col>
+              <el-col :span="16">
+                <div class="percent-bar">
+                  <div class="percent-bar-bar">
+                    <div class="percent-bar-content" v-bind:style="{width: item.percent}"></div>
+                    <div class="percent-bar-number">
+                      <p>{{ item.Count }}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </el-col>
-          </el-row>
-          <el-row lass="result-info">
-            <el-col :span="24">
-              <p>統計單位：人數</p>
-            </el-col>
-            <el-col :span="24" class="result-close">
-              <el-button round  @click="resultShowMobile = false">
-                返回
-              </el-button>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
+              </el-col>
+            </el-row>
+            <el-row lass="result-info">
+              <el-col :span="24">
+                <p>統計單位：人數</p>
+              </el-col>
+              <el-col :span="24" class="result-close">
+                <el-button round  @click="resultShowMobile = false">
+                  返回
+                </el-button>
+              </el-col>
+            </el-row>
+          </div>
+        </el-col>
+      </transition>
     </el-row>
       <!-- footer -->
     <el-row class="footer">
@@ -277,14 +280,16 @@ export default {
         // console.log(postRes);
         await this.getData();
         this.loading = false;
-        Swal.fire({
+        let res = await Swal.fire({
           type: 'success',
           title: '投票成功',
           text: '未來綠色和平會將投票結果和您的聲音傳達給企業! 請密切關注綠色和平臉書粉絲團，並邀請朋友參與投票',
           confirmButtonColor: 'rgb(235, 144, 98)',
         })
+        if (res.value) {
+          this.share();
+        }
         
-
       } catch (err) {
         console.log(err);
         this.loading = false;
@@ -315,15 +320,22 @@ export default {
         this.mobile = false
       }
     },
-    test() {
+    share() {
+      let title = '超市減塑，誰當先鋒 | 綠色和平'
+      let text = '立即投票，讓你最支持的零售商，實踐減塑！'
+      let url = window.location.href
+      // let url = 'https://garrychiao.github.io/gp-voting/';
+
       if (navigator.share) {
         navigator.share({
-            title: 'Web Fundamentals',
-            text: 'Check out Web Fundamentals — it rocks!',
-            url: 'https://github.com/garrychiao/gp-voting',
-        })
-          .then(() => console.log('Successful share'))
+            title,
+            text,
+            url,
+        }).then(() => console.log('Successful share'))
           .catch((error) => console.log('Error sharing', error));
+      } else {
+        // console.log(url)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "pop", "width=600, height=400, scrollbars=no");
       }
     }
   }
@@ -695,132 +707,4 @@ export default {
     }
   }
 }
-// @media (max-width: 767px) {
-//   .header-img {
-//     background-image: url('./assets/img/banner.png');
-//     height: 35vh;
-//     .logo{
-//       top: unset;
-//       bottom: 50px;
-//       left: 30px;
-//       width: 30%;
-//       max-width: 260px;
-//     }
-//     .cart-icon {
-//       top: unset;
-//       bottom: 20px;
-//       left: 30px;
-//       width: 25px;
-//     }
-//     p {
-//       top: unset;
-//       font-size: 2.2rem;
-//       letter-spacing: 3.5pt;
-//       bottom: 16px;
-//       left: 70px;
-//     }
-//   }  
-//   .header-title {
-//     // height: 25vh;
-//     padding: 30px;
-//     .title-Q {
-//       font-size: 8rem;
-//     }
-//     .title {
-//       font-size: 1.6rem;
-//       margin-top: 20px;
-//       letter-spacing: 1.75pt;
-//     }
-//     .sub-title {
-//       font-size: 1.2rem;
-//       letter-spacing: 1.75pt;
-//       text-align:  center;
-//     }
-//     .voted-title {
-//       font-size: 1.5rem;
-//       padding: 3% 0;
-//       letter-spacing: 3.15pt;
-//       text-align: center;
-//       .el-button {
-//         background-color: transparent;
-//         color: white;
-//         font-size: 1rem;
-//         padding: 10px;
-//         letter-spacing: 1.75pt;
-//       }
-//     }
-//   }
-//   .result-dialog-mobile {
-//     .result-dialog-content{ 
-//       padding: 40px 20px 20px 20px;
-//       p {
-//         margin: 0 15px 0 0;
-//         text-align: right;
-//       }
-//       .el-row {
-//         padding: 5px 0;
-//       }
-//       .percent-bar {
-//         width: 100%;
-//         position: relative;
-//         top: 50%;
-//         .percent-bar-bar {
-//           display: inline-flex;
-//           width: 100%;
-//           .percent-bar-content {
-//             height: 20px;
-//             background-color: rgb(251, 210, 73);
-//           }
-//           .percent-bar-number {
-//             width: 20%;
-//             text-align: left;
-//             font-size: 0.8rem;
-//           }
-//         }
-//       }
-//       .result-info {
-//         text-align: right;
-//       }
-//       .result-close {
-//         text-align: center;
-//         padding: 20px;
-//         .el-button {
-//           background-color: var(--main-color);
-//           color: white;
-//           letter-spacing: 2.15pt;
-//           font-size: 1rem;
-//         }
-//       }
-//     }
-//   }
-
-//   .footer {
-//     background-image: url('./assets/img/footer.png');
-//     background-size: cover;
-//     height: 350px;
-//     padding: 20px 30px; 
-//     .el-row {
-//       position: relative;
-//     }
-//     .copyright {
-//       text-align: right;
-//       letter-spacing: 1.25pt;
-//     }
-//     .el-button {
-//       padding: 10px;
-//       margin-top: 20px;
-//       background-color: transparent;
-//       letter-spacing: 2pt;
-//       color: white;
-//       border: 1px solid white;
-//       font-size: 1rem;
-//     }
-//     p {
-//       font-size: 0.6rem;
-//       margin-top: 0;
-//       margin-bottom: 20px;
-//       color: white;
-//     }
-//   }
-// }
 </style>
