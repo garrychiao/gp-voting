@@ -175,8 +175,6 @@ import SelectBlock from './components/SelectBlock.vue';
 import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
 import Swal from 'sweetalert2'
-import Fingerprint2 from 'fingerprintjs2'
-// console.log(Fingerprint2);
 
 
 export default {
@@ -225,8 +223,8 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.handleResize();
     this.marts = this.shuffle(this.marts);
-    // await this.getIP();
-    await this.fetchFingerprint();
+    await this.getIP();
+    // await this.fetchFingerprint();
     this.getData();
   },
   methods: {
@@ -264,25 +262,25 @@ export default {
         console.log(err);
       }
     },
-    // async getIP () {
+    async getIP () {
 
-    //   try {
-    //     let dataRef = await axios.get('https://api.ipify.org?format=json');
-    //     let data = dataRef.data;
-    //     this.ip = data.ip
-    //     // console.log(this.ip);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-    async fetchFingerprint(){
-      let components = await Fingerprint2.getPromise(this.fpOptions);
-      let values = components.map(function (component) { return component.value })
-      console.log(values)
-      let murmur = Fingerprint2.x64hash128(values.join(''), 31)
-      console.log(murmur)
-      this.ip = murmur;
+      try {
+        let dataRef = await axios.get('https://api.ipify.org?format=json');
+        let data = dataRef.data;
+        this.ip = data.ip
+        // console.log(this.ip);
+      } catch (err) {
+        console.log(err);
+      }
     },
+    // async fetchFingerprint(){
+    //   let components = await Fingerprint2.getPromise(this.fpOptions);
+    //   let values = components.map(function (component) { return component.value })
+    //   console.log(values)
+    //   let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+    //   console.log(murmur)
+    //   this.ip = murmur;
+    // },
     checkSendVote (mart) {
       // if (!this.mobile) {
       //   this.sendVote(mart)

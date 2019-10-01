@@ -10,7 +10,7 @@
     font-family: Apercu-BoldItalic;
     src: url('../fonts/ApercuBoldItalic.otf');
 }
-@font-face {
+/* @font-face {
     font-family: Apercu-Italic;
     src: url('../fonts/ApercuItalic.otf');
 }
@@ -29,7 +29,7 @@
 @font-face {
     font-family: Apercu-Light;
     src: url('../fonts/ApercuLight.otf');
-}
+} */
 @font-face {
     font-family: NotoSansCJKtc-Regular;
     src: url('../fonts/NotoSansCJKtc-Regular.otf');
@@ -49,7 +49,7 @@
 .Apercu-BoldItalic {
     font-family: Apercu-BoldItalic;
 }
-.Apercu-Italic {
+/* .Apercu-Italic {
     font-family: Apercu-Italic;
 }
 .Apercu-Regular {
@@ -63,7 +63,7 @@
 }
 .Apercu-Light {
     font-family: Apercu-Light;
-}
+} */
 .NotoSansCJKtc-Regular {
     font-family: NotoSansCJKtc-Regular;
 }
