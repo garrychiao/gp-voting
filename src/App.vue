@@ -136,19 +136,22 @@
       <el-col :xs="24" :sm="{span: 5, offset: 0}" :md="{span: 6, offset: 2}" :xl="{span: 6, offset: 3}">
         <el-row :gutter="15">
           <el-col :xs="4" :sm="8" :md="5">
-            <el-button class="NotoSansCJKtc-Regular" round>
+            <el-button class="NotoSansCJKtc-Regular" round 
+              @click="openLink('https://www.greenpeace.org/taiwan/')">
               主頁
             </el-button>
           </el-col>
           <el-col :xs="8" :sm="8">
-            <el-button class="NotoSansCJKtc-Regular" round>
+            <el-button class="NotoSansCJKtc-Regular" round
+              @click="openLink('http://act.greenpeace.org/page/45804/donate/1')">
               捐助支持
             </el-button>
           </el-col>
         </el-row>
         <el-row>
           <el-col :xs="12" :sm="12">
-            <el-button class="NotoSansCJKtc-Regular" round>
+            <el-button class="NotoSansCJKtc-Regular" round 
+              @click="openLink('https://www.greenpeace.org/taiwan/policies/privacy-and-cookies')">
               隱私政策與個人資料收集聲明
             </el-button>
           </el-col>
@@ -172,6 +175,8 @@ import SelectBlock from './components/SelectBlock.vue';
 import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
 import Swal from 'sweetalert2'
+import Fingerprint2 from 'fingerprintjs2'
+// console.log(Fingerprint2);
 
 
 export default {
@@ -191,6 +196,16 @@ export default {
       loading: false,
       votedTarget: {},
       ip: '',
+      fingerprint: '',
+      fpComponents: [],
+      fpOptions: {
+        fonts: {
+          extendedJsFonts: true
+        },
+        excludes: {
+          userAgent: true
+        }
+      },
       statistics: {},
       marts: [
         "愛買",
@@ -210,14 +225,13 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.handleResize();
     this.marts = this.shuffle(this.marts);
-    await this.getIP();
+    // await this.getIP();
+    await this.fetchFingerprint();
     this.getData();
-    // await this.getData();
-    // console.log(this.marts)
   },
   methods: {
     async getData () {
-    this.loading = true;
+      this.loading = true;
       try {
         let dataRef = await axios.get(`${config.script}?ip=${this.ip}`);
         let data = dataRef.data
@@ -250,16 +264,24 @@ export default {
         console.log(err);
       }
     },
-    async getIP () {
+    // async getIP () {
 
-      try {
-        let dataRef = await axios.get('https://api.ipify.org?format=json');
-        let data = dataRef.data;
-        this.ip = data.ip
-        // console.log(this.ip);
-      } catch (err) {
-        console.log(err);
-      }
+    //   try {
+    //     let dataRef = await axios.get('https://api.ipify.org?format=json');
+    //     let data = dataRef.data;
+    //     this.ip = data.ip
+    //     // console.log(this.ip);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // },
+    async fetchFingerprint(){
+      let components = await Fingerprint2.getPromise(this.fpOptions);
+      let values = components.map(function (component) { return component.value })
+      console.log(values)
+      let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+      console.log(murmur)
+      this.ip = murmur;
     },
     checkSendVote (mart) {
       // if (!this.mobile) {
@@ -285,6 +307,7 @@ export default {
           title: '投票成功',
           text: '未來綠色和平會將投票結果和您的聲音傳達給企業! 請密切關注綠色和平臉書粉絲團，並邀請朋友參與投票',
           confirmButtonColor: 'rgb(235, 144, 98)',
+          customClass: 'NotoSansCJKtc-Regular',
         })
         if (res.value) {
           this.share();
@@ -337,6 +360,13 @@ export default {
         // console.log(url)
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "pop", "width=600, height=400, scrollbars=no");
       }
+    },
+    openLink (link) {
+      // console.log(link)
+      window.open(
+        link,
+        '_blank'
+      )
     }
   }
 }
