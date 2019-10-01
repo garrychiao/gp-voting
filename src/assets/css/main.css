@@ -65,13 +65,16 @@
     font-family: Apercu-Light;
 } */
 .NotoSansCJKtc-Regular {
-    font-family: NotoSansCJKtc-Regular;
+    font-family: NotoSansCJKtc-Regular !important;
 }
 .NotoSansCJKtc-Bold {
     font-family: NotoSansCJKtc-Bold;
 }
 .NotoSansCJKtc-Medium {
     font-family: NotoSansCJKtc-Medium;
+}
+.swal2-content {
+    letter-spacing: 1pt;
 }
 
 body {
