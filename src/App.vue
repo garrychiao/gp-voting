@@ -126,7 +126,7 @@
             <p class="NotoSansCJKtc-Regular copyright">© 2019 Greenpeace</p>
           </el-col>
           <el-col :xs="15">
-            <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發生，我們的存在是因為脆弱的地球需要改變、需要行動。</p>
+            <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發聲，我們的存在是因為脆弱的地球需要改變、需要行動。</p>
           </el-col>
           <el-col :xs="20">
             <p class="NotoSansCJKtc-Medium">但保護地球的使命不能僅靠綠色和平來完成，「您」就是改變世界的力量！</p>
@@ -158,7 +158,7 @@
         </el-row>
       </el-col>
       <el-col :sm="11" v-if="!mobile">
-        <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發生，我們的存在是因為脆弱的地球需要改變、需要行動。<br>但保護地球的使命不能僅靠綠色和平來完成，「您」就是改變世界的力量！</p>
+        <p class="NotoSansCJKtc-Regular">綠色和平致力於為地球發聲，我們的存在是因為脆弱的地球需要改變、需要行動。<br>但保護地球的使命不能僅靠綠色和平來完成，「您」就是改變世界的力量！</p>
       </el-col>
       <el-col :sm="4" :xl="3" v-if="!mobile">
         <p class="NotoSansCJKtc-Regular copyright">© 2019 Greenpeace</p>
