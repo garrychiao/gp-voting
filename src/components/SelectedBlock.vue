@@ -32,7 +32,7 @@ export default {
           imgUrl: require('@/assets/img/marts/a-mart.png')
         },
         {
-          mart: '家樂福',
+          mart: '家樂福(含便利購)',
           engMart: "Carrefour",
           imgUrl: require('@/assets/img/marts/carrefour.png')
         },

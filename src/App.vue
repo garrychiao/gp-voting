@@ -17,7 +17,7 @@
             <p class="title-Q Apercu-Bold">Q</p>
           </el-col>
           <el-col :xs="{span: 17, offset: 0}" :sm="{span: 14, offset: 0}" :md="{span: 12, offset: 3}">
-            <p class="title NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售業中，<br>你最想先看到哪家<span class="NotoSansCJKtc-Medium">達成減塑</span>？</p>
+            <p class="title NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售通路中，<br>你最想先看到哪家<span class="NotoSansCJKtc-Medium">達成減塑</span>？</p>
           </el-col>
         </el-row>
         <el-row v-if="!voted">
@@ -27,7 +27,7 @@
         </el-row>
         <el-row v-if="voted">
           <el-col :xs="{span: 24, offset: 0}" :sm="{span: 18, offset: 3}" :xl="{span: 18, offset: 3}" class="voted-title">
-            <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售業票選排行</p>
+            <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售通路票選排行</p>
             <el-button round @click="resultShow = true" v-if="!mobile">
               看實際票數
             </el-button>
@@ -208,7 +208,7 @@ export default {
       statistics: {},
       marts: [
         "愛買",
-        "家樂福",
+        "家樂福(含便利購)",
         "全聯福利中心",
         "好市多",
         "全家",
