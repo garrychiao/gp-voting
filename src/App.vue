@@ -22,7 +22,7 @@
         </el-row>
         <el-row v-if="!voted">
           <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :xl="{span: 12, offset: 6}">
-            <p class="sub-title NotoSansCJKtc-Regular">｜ <span class="NotoSansCJKtc-Bold" v-if="!mobile">點擊</span><span class="NotoSansCJKtc-Bold" v-if="mobile">長按3秒 </span>品牌方塊，即可投票  ｜ </p>
+            <p class="sub-title NotoSansCJKtc-Regular">｜ <span class="NotoSansCJKtc-Bold" v-if="!mobile">點擊</span><span class="NotoSansCJKtc-Bold" v-if="mobile">點擊 </span>品牌方塊，即可投票  ｜ </p>
           </el-col>
         </el-row>
         <el-row v-if="voted">
@@ -137,7 +137,7 @@
         <el-row :gutter="15">
           <el-col :xs="4" :sm="8" :md="5">
             <el-button class="NotoSansCJKtc-Regular" round 
-              @click="openLink('https://www.greenpeace.org/taiwan/')">
+              @click="openLink('https://www.greenpeace.org/taiwan')">
               主頁
             </el-button>
           </el-col>
@@ -306,6 +306,7 @@ export default {
           title: '投票成功',
           text: '未來綠色和平會將投票結果和您的聲音傳達給企業! 請密切關注綠色和平臉書粉絲團，並邀請朋友參與投票',
           confirmButtonColor: 'rgb(235, 144, 98)',
+          confirmButtonText: '分享給朋友',
           customClass: 'NotoSansCJKtc-Regular',
         })
         if (res.value) {
@@ -363,7 +364,7 @@ export default {
     openLink (link) {
       // console.log(link)
       window.open(
-        link,
+        link + "?utm_campaign=2019-plastic_retailer&utm_source=change.greenpeace.org.tw&utm_medium=referral&utm_content=footer_link",
         '_blank'
       )
     }

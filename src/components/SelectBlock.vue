@@ -10,7 +10,8 @@
       <p class="Apercu-Bold">{{ target.engMart }}</p>
     </div>
     <div class="confirm-layer">
-      <el-button round class="NotoSansCJKtc-Regula">確定投票</el-button>
+      <el-button round class="NotoSansCJKtc-Regula" v-if="!mobile">確定投票</el-button>
+      <el-button round class="NotoSansCJKtc-Regula" v-if="mobile">長按投票</el-button>
     </div>
   </div>
 </template>
