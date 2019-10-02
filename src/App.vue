@@ -192,7 +192,7 @@ export default {
       resultShowMobile: false,
       mobile: false,
       voted: false,
-      loading: false,
+      loading: true,
       votedTarget: {},
       ip: '',
       fingerprint: '',
