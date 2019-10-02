@@ -346,7 +346,7 @@ export default {
     share() {
       let title = '超市減塑，誰當先鋒 | 綠色和平'
       let text = '立即投票，讓你最支持的零售商，實踐減塑！'
-      let url = window.location.href
+      let url = "https://act.gp/2pcQC2"
       // let url = 'https://garrychiao.github.io/gp-voting/';
 
       if (navigator.share) {
