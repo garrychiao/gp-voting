@@ -378,7 +378,7 @@ export default {
   letter-spacing: 2pt;
 }
 .header-img {
-  background-image: url('./assets/img/web-banner.png');
+  background-image: url('./assets/img/web-banner.webp');
   background-size: cover;
   height: 100vh;
   position: relative;
@@ -607,7 +607,7 @@ export default {
 // mobile
 @media (max-width: 991px) {
   .header-img {
-    background-image: url('./assets/img/banner.png');
+    background-image: url('./assets/img/mobile-banner.webp');
     height: 35vh;
     .logo{
       top: unset;
@@ -706,7 +706,7 @@ export default {
     }
   }
   .footer {
-    background-image: url('./assets/img/footer.png');
+    background-image: url('./assets/img/footer.webp');
     background-size: cover;
     background-position: center;
     height: auto;
