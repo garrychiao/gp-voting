@@ -175,7 +175,7 @@ import SelectBlock from './components/SelectBlock.vue';
 import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
 import Swal from 'sweetalert2'
-
+// console.log(process.env.NODE_ENV);
 
 export default {
   name: 'app',
@@ -186,6 +186,7 @@ export default {
   },
   data () {
     return {
+      scriptRoute: '',
       domLoading: true,
       resultShow: false,
       resultShowMobile: false,
@@ -220,6 +221,12 @@ export default {
   },
   async created () {
     this.loading = true;
+    if (process.env.NODE_ENV === 'production') {
+      // console.log('pro')
+      this.scriptRoute = config.productionScript;
+    } else {
+      this.scriptRoute = config.devScript;
+    }
     window.addEventListener('resize', this.handleResize)
     this.handleResize();
     this.marts = this.shuffle(this.marts);
@@ -231,7 +238,9 @@ export default {
     async getData () {
       this.loading = true;
       try {
-        let dataRef = await axios.get(`${config.script}?ip=${this.ip}`);
+        
+        let dataRef = await axios.get(`${this.scriptRoute}?ip=${this.ip}`);
+        // console.log(dataRef)
         let data = dataRef.data
         this.statistics = data.data;
       
@@ -248,7 +257,7 @@ export default {
           rank++
           this.statistics[i].percent = this.statistics[i].Count / this.statistics[0].Count * 100 + '%';
         }
-        console.log(this.statistics);
+        // console.log(this.statistics);
 
         if (data.target.Name) {
           this.votedTarget = data.target;
@@ -273,14 +282,6 @@ export default {
         console.log(err);
       }
     },
-    // async fetchFingerprint(){
-    //   let components = await Fingerprint2.getPromise(this.fpOptions);
-    //   let values = components.map(function (component) { return component.value })
-    //   console.log(values)
-    //   let murmur = Fingerprint2.x64hash128(values.join(''), 31)
-    //   console.log(murmur)
-    //   this.ip = murmur;
-    // },
     checkSendVote (mart) {
       // if (!this.mobile) {
       //   this.sendVote(mart)
@@ -295,7 +296,7 @@ export default {
       
       try {
 
-        let postRef = await axios.post(config.script, data);
+        let postRef = await axios.post(this.scriptRoute, data);
         let postRes = postRef.data;
         // console.log(postRes);
         await this.getData();
