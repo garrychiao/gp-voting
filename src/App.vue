@@ -453,7 +453,7 @@ export default {
   }
   .voted-title {
     font-size: 1.5rem;
-    padding: 5% 0;
+    padding: 1% 0;
     letter-spacing: 3.15pt;
     text-align: center;
     .total-count {
@@ -554,6 +554,7 @@ export default {
       margin-top: 30px;
     }
     .voted-title {
+      padding: 5% 0;
       p {
         margin: unset;
       }
