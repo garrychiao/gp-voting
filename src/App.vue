@@ -262,8 +262,8 @@ export default {
       try {
         
         let dataRef = await axios.get(`${this.scriptRoute}?ip=${this.ip}`);
-        // console.log(dataRef)
         let data = dataRef.data
+        // console.log(data)
         this.statistics = data.data;
       
         this.statistics.sort((a, b) => {
@@ -453,7 +453,7 @@ export default {
   }
   .voted-title {
     font-size: 1.5rem;
-    padding: 3% 0;
+    padding: 5% 0;
     letter-spacing: 3.15pt;
     text-align: center;
     .total-count {
