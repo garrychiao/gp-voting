@@ -230,7 +230,7 @@ export default {
         "頂好",
         "美廉社",
       ],
-      countUpDelay: 1500,
+      countUpDelay: 500,
       countUpOptions: {
         useEasing: true,
         useGrouping: true,
