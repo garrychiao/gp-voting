@@ -28,7 +28,16 @@
         <el-row v-if="voted">
           <el-col :xs="{span: 24, offset: 0}" :sm="{span: 18, offset: 3}" :xl="{span: 18, offset: 3}" class="voted-title">
             <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售通路票選排行</p>
-            <p class="NotoSansCJKtc-Regular total-count">目前總投票人數 : <span class="Apercu-BoldItalic"> {{totalVoted}} </span></p>
+            <p class="NotoSansCJKtc-Regular total-count">
+              目前總投票人數 : 
+              <span class="Apercu-BoldItalic" style="color: #d12c11">
+                <ICountUp
+                  :delay="countUpDelay"
+                  :endVal="totalVoted"
+                  :options="countUpOptions"
+                />
+              </span>
+            </p>
             <el-button round @click="resultShow = true" v-if="!mobile">
               看實際票數
             </el-button>
@@ -175,7 +184,8 @@ import axios from 'axios';
 import SelectBlock from './components/SelectBlock.vue';
 import BlankBlock from './components/BlankBlock.vue';
 import SelectedBlock from './components/SelectedBlock.vue';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import ICountUp from 'vue-countup-v2';
 // console.log(process.env.NODE_ENV);
 
 export default {
@@ -184,6 +194,7 @@ export default {
     SelectBlock,
     SelectedBlock,
     BlankBlock,
+    ICountUp
   },
   data () {
     return {
@@ -218,7 +229,16 @@ export default {
         "7-ELEVEN",
         "頂好",
         "美廉社",
-      ]
+      ],
+      countUpDelay: 1500,
+      countUpOptions: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: ''
+      }
     }
   },
   async created () {
