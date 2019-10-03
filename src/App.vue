@@ -28,6 +28,7 @@
         <el-row v-if="voted">
           <el-col :xs="{span: 24, offset: 0}" :sm="{span: 18, offset: 3}" :xl="{span: 18, offset: 3}" class="voted-title">
             <p class="NotoSansCJKtc-Regular">臺灣<span class="Apercu-BoldItalic">9</span>大連鎖零售通路票選排行</p>
+            <p class="NotoSansCJKtc-Regular total-count">目前總投票人數 : <span class="Apercu-BoldItalic"> {{totalVoted}} </span></p>
             <el-button round @click="resultShow = true" v-if="!mobile">
               看實際票數
             </el-button>
@@ -186,6 +187,7 @@ export default {
   },
   data () {
     return {
+      totalVoted: 0,
       scriptRoute: '',
       domLoading: true,
       resultShow: false,
@@ -248,7 +250,9 @@ export default {
           return b.Count - a.Count
         });
         let rank = 1
+        this.totalVoted = 0;
         for (let i in this.statistics) {
+          this.totalVoted += this.statistics[i].Count;
           if (i > 0 && this.statistics[i].Count == this.statistics[i - 1].Count) {
             this.statistics[i].rank = this.statistics[i - 1].rank;
           } else {
@@ -257,7 +261,7 @@ export default {
           rank++
           this.statistics[i].percent = this.statistics[i].Count / this.statistics[0].Count * 100 + '%';
         }
-        // console.log(this.statistics);
+        // console.log(this.totalVoted);
 
         if (data.target.Name) {
           this.votedTarget = data.target;
@@ -432,6 +436,10 @@ export default {
     padding: 3% 0;
     letter-spacing: 3.15pt;
     text-align: center;
+    .total-count {
+      font-size: 1.2rem;
+      padding: 10px;
+    }
     .el-button {
       background-color: transparent;
       color: white;
@@ -521,8 +529,19 @@ export default {
   }
   .header-title {
     padding: 10px 20px;
+    margin: unset;
     .title {
       margin-top: 30px;
+    }
+    .voted-title {
+      p {
+        margin: unset;
+      }
+    }
+    .total-count {
+      font-size: 1.2rem;
+      padding: 10px;
+      margin: unset;
     }
   }
   .result-dialog {
@@ -655,6 +674,9 @@ export default {
       padding: 3% 0;
       letter-spacing: 3.15pt;
       text-align: center;
+      p {
+        margin: unset;
+      }
       .el-button {
         background-color: transparent;
         color: white;
