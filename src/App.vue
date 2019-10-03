@@ -154,7 +154,7 @@
           <el-col :xs="8" :sm="8">
             <el-button class="NotoSansCJKtc-Regular" round
               @click="openLink('http://act.greenpeace.org/page/45804/donate/1')">
-              捐助支持
+              支持我們
             </el-button>
           </el-col>
         </el-row>
