@@ -283,10 +283,16 @@ export default {
         }
         // console.log(this.totalVoted);
 
+        this.voted = true;
         if (data.target.Name) {
           this.votedTarget = data.target;
           // console.log(this.votedTarget);
-          this.voted = true;
+          // this.voted = true;
+        } else {
+          this.votedTarget = {
+            IP: '',
+            Name: '全聯福利中心'
+          }
         }
         this.loading = false;
         this.domLoading = false;
