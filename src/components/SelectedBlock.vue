@@ -137,8 +137,10 @@ export default {
     width: 100%;
     height: 25vh;
     background-color: rgba(255, 239, 167, 0.57);
-    background-image: url('../assets/img/voted.png');
+    // background-image: url('../assets/img/voted.png');
+    background-image: url('../assets/img/champion-icon.png');
     background-repeat: no-repeat;
+    background-size: 50%;
     background-position: right bottom;
     text-align: center;
     .el-button {
